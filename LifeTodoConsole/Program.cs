@@ -27,19 +27,21 @@ namespace LifeTodoConsole
             {
                 string? todoTextNew = RecieveText();
 
-                if (string.IsNullOrWhiteSpace(todoTextNew))
-                {
-                    break;
-                }
-                else if (int.TryParse(todoTextNew, out int indexRemove))
+                if (int.TryParse(todoTextNew, out int indexRemove))
                 {
                     todos.RemoveAt(indexRemove);
                 }
                 else
                 {
-                    var todoNew = new Todo(todoTextNew!, DateTime.Now);
-                    todos.Add(todoNew);
-
+                    try
+                    {
+                        var todoNew = new Todo(todoTextNew!, DateTime.Now);
+                        todos.Add(todoNew);
+                    }
+                    catch (ArgumentException)
+                    {
+                        break;
+                    }
                 }
 
                 ShowTodos(todos.GetAll());

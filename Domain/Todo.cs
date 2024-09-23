@@ -9,6 +9,11 @@ namespace LifeTodoConsole.Domain
 
         public Todo(string text, DateTime CreatedDate)
         {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentException("Failed to create Todo. Text Must not null or whitespace");
+            }
+
             this.Text = text;
             this.CreatedDate = CreatedDate;
         }
