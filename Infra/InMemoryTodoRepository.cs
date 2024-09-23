@@ -1,11 +1,17 @@
 ﻿using LifeTodoConsole.Domain;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 
 namespace LifeTodoConsole.Infra
 {
     public class InMemoryTodoRepository : ITodoRepository
     {
+        private static readonly string FILE_PATH_TODOS = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+          + $"{Path.DirectorySeparatorChar}{nameof(LifeTodoConsole)}{Path.DirectorySeparatorChar}todo.json";
+
         private List<Todo> todos = new();
 
         public void Add(Todo todoNew)
@@ -18,15 +24,48 @@ namespace LifeTodoConsole.Infra
             return todos.ToList();
         }
 
-        public void Initialize(IEnumerable<Todo> todos)
+        public void Initialize()
         {
 
-            this.todos = todos.ToList();
+            this.todos = LoadTodos();
         }
 
         public void RemoveAt(int indexRemove)
         {
             todos.RemoveAt(indexRemove);
+        }
+
+        private List<Todo> LoadTodos()
+        {
+            List<Todo>? todos = null;
+            try
+            {
+                using var fs = new FileStream(FILE_PATH_TODOS, FileMode.Open);
+                todos = JsonSerializer.Deserialize<List<Todo>>(fs);
+            }
+            catch (Exception)
+            {
+            }
+
+            return todos ?? new();
+        }
+
+        public void Save()
+        {
+            var path = Path.GetDirectoryName(FILE_PATH_TODOS);
+            if (path == null)
+            {
+                Console.WriteLine("FAILED SAVE TODOs");
+                return;
+            }
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            using var fs = new FileStream(FILE_PATH_TODOS, FileMode.OpenOrCreate);
+            JsonSerializer.Serialize(fs, todos);
         }
     }
 }

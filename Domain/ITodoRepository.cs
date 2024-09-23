@@ -6,7 +6,8 @@ namespace LifeTodoConsole.Domain
     {
         void Add(Todo todoNew);
         List<Todo> GetAll();
-        void Initialize(IEnumerable<Todo> todos);
+        void Initialize();
         void RemoveAt(int indexRemove);
+        void Save();
     }
 }
