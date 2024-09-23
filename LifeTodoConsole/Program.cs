@@ -1,4 +1,5 @@
 ﻿using LifeTodoConsole.Domain;
+using LifeTodoConsole.UseCase;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LifeTodoConsole
@@ -11,13 +12,12 @@ namespace LifeTodoConsole
 
             var serviceProvider = new AppInstaller().AppProvider;
 
-            var todos = serviceProvider.GetService<ITodoRepository>()!;
-            todos.Initialize();
+            var appService = serviceProvider.GetService<TodoAppService>()!;
 
             Console.WriteLine("新しいTODOを入力すると追加されます。消すときは数字を入力してください。何も入力せず、Enterを押すと終了します。");
             Console.WriteLine();
 
-            ShowTodos(todos.GetAll());
+            ShowTodos(appService.GetTodos());
 
             while (true)
             {
@@ -25,14 +25,13 @@ namespace LifeTodoConsole
 
                 if (int.TryParse(todoTextNew, out int indexRemove))
                 {
-                    todos.RemoveAt(indexRemove);
+                    appService.RemoveTodoAt(indexRemove);
                 }
                 else
                 {
                     try
                     {
-                        var todoNew = new Todo(todoTextNew!, DateTime.Now);
-                        todos.Add(todoNew);
+                        appService.AddTodo(todoTextNew);
                     }
                     catch (ArgumentException)
                     {
@@ -40,14 +39,14 @@ namespace LifeTodoConsole
                     }
                 }
 
-                ShowTodos(todos.GetAll());
+                ShowTodos(appService.GetTodos());
 
                 Console.WriteLine();
             }
 
             Console.WriteLine("End App");
-            ShowTodos(todos.GetAll());
-            todos.Save();
+            ShowTodos(appService.GetTodos());
+            appService.Save();
             Console.ReadLine();
         }
 
