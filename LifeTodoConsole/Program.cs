@@ -1,4 +1,5 @@
 ﻿using LifeTodoConsole.Domain;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 
 namespace LifeTodoConsole
@@ -12,12 +13,15 @@ namespace LifeTodoConsole
         {
             Console.WriteLine("LIFE TODO APP");
 
-            List<Todo> todos = LoadTodos();
+            var serviceProvider = new AppInstaller().AppProvider;
+
+            var todos = serviceProvider.GetService<ITodoRepository>()!;
+            todos.Initialize(LoadTodos());
 
             Console.WriteLine("新しいTODOを入力すると追加されます。消すときは数字を入力してください。何も入力せず、Enterを押すと終了します。");
             Console.WriteLine();
 
-            ShowTodos(todos);
+            ShowTodos(todos.GetAll());
 
             while (true)
             {
@@ -38,14 +42,14 @@ namespace LifeTodoConsole
 
                 }
 
-                ShowTodos(todos);
+                ShowTodos(todos.GetAll());
 
                 Console.WriteLine();
             }
 
             Console.WriteLine("End App");
-            ShowTodos(todos);
-            SaveTodos(todos);
+            ShowTodos(todos.GetAll());
+            SaveTodos(todos.GetAll());
             Console.ReadLine();
         }
 

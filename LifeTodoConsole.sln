@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LifeTodoConsole", "LifeTodo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{3AB063CA-4D2B-4F6A-9B6A-5CE3381DF7D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "Infra\Infra.csproj", "{B9A67C1E-94A1-42A6-A675-3B3C6A2E5669}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{3AB063CA-4D2B-4F6A-9B6A-5CE3381DF7D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AB063CA-4D2B-4F6A-9B6A-5CE3381DF7D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AB063CA-4D2B-4F6A-9B6A-5CE3381DF7D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9A67C1E-94A1-42A6-A675-3B3C6A2E5669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9A67C1E-94A1-42A6-A675-3B3C6A2E5669}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9A67C1E-94A1-42A6-A675-3B3C6A2E5669}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9A67C1E-94A1-42A6-A675-3B3C6A2E5669}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
