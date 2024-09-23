@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using LifeTodoConsole.Domain;
+using System.Text.Json;
 
 namespace LifeTodoConsole
 {

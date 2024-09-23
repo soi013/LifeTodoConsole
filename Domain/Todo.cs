@@ -1,4 +1,6 @@
-﻿namespace LifeTodoConsole
+﻿using System;
+
+namespace LifeTodoConsole.Domain
 {
     public record Todo
     {
