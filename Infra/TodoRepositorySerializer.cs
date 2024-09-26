@@ -11,7 +11,7 @@ namespace LifeTodoConsole.Infra
         private static readonly string FILE_PATH_TODOS = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
           + $"{Path.DirectorySeparatorChar}{nameof(LifeTodoConsole)}{Path.DirectorySeparatorChar}todo.json";
 
-        private JsonSerializerOptions jsonOptions;
+        private readonly JsonSerializerOptions jsonOptions;
 
         public TodoRepositorySerializer()
         {

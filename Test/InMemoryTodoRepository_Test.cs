@@ -29,16 +29,19 @@ namespace Test
             rep.Add(new Todo("test1"));
             rep.Add(new Todo("test2"));
 
-            rep.DoneTodoAt(0);
+
+            var todoDone = rep.GetActiveTodos()[0];
+            rep.DoTodo(todoDone);
 
             rep.GetActiveTodos().Should().HaveCount(1);
             rep.GetInactiveTodos().Should().HaveCount(1);
             rep.GetActiveTodos().Select(x => x.Text).Should().BeEquivalentTo("test2");
 
-            rep.DoneTodoAt(0);
+            todoDone = rep.GetActiveTodos()[0];
+            rep.DoTodo(todoDone);
 
             rep.GetActiveTodos().Should().BeEmpty();
-            rep.GetInactiveTodos().Should().HaveCount(1);
+            rep.GetInactiveTodos().Should().HaveCount(2);
         }
     }
 }

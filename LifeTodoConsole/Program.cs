@@ -6,6 +6,9 @@ namespace LifeTodoConsole
 {
     class Program
     {
+        private static List<Todo> currentActiveTodos = [];
+        private static List<Todo> currentInactiveTodos = [];
+
         static void Main()
         {
             Console.WriteLine("LIFE TODO APP");
@@ -17,15 +20,17 @@ namespace LifeTodoConsole
             Console.WriteLine("新しいTODOを入力すると追加されます。完了したら数字を入力してください。何も入力せず、Enterを押すと終了します。");
             Console.WriteLine();
 
-            ShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
+            UpdateAndShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
 
             while (true)
             {
                 string? todoTextNew = RecieveText();
 
-                if (int.TryParse(todoTextNew, out int indexRemove))
+                if (int.TryParse(todoTextNew, out int indexDone))
                 {
-                    appService.DoneTodoAt(indexRemove);
+                    Todo itemDone = currentActiveTodos.ElementAt(indexDone);
+
+                    appService.DoTodo(itemDone);
                 }
                 else
                 {
@@ -39,13 +44,13 @@ namespace LifeTodoConsole
                     }
                 }
 
-                ShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
+                UpdateAndShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
 
                 Console.WriteLine();
             }
 
             Console.WriteLine("End App");
-            ShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
+            UpdateAndShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
             appService.Save();
             Console.ReadLine();
         }
@@ -58,16 +63,19 @@ namespace LifeTodoConsole
             return todoTextNew;
         }
 
-        static void ShowTodos(IEnumerable<Todo> activeTodos, IEnumerable<Todo> inactiveTodo)
+        static void UpdateAndShowTodos(IEnumerable<Todo> activeTodos, IEnumerable<Todo> inactiveTodo)
         {
+            currentActiveTodos = activeTodos.ToList();
+            currentInactiveTodos = inactiveTodo.ToList();
+
             Console.WriteLine($"Current TODOs");
-            foreach (var (todo, index) in activeTodos.Select((t, i) => (t, i)))
+            foreach (var (todo, index) in currentActiveTodos.Select((t, i) => (t, i)))
             {
                 Console.WriteLine($" {index}:\t{todo.Text}");
             }
 
             Console.WriteLine($"---INACTIVE---");
-            foreach (var (todo, index) in inactiveTodo.Select((t, i) => (t, i)))
+            foreach (var (todo, index) in currentInactiveTodos.Select((t, i) => (t, i)))
             {
                 Console.WriteLine($" {index}:\t{todo.Text}");
             }

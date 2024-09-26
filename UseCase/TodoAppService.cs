@@ -29,9 +29,9 @@ namespace LifeTodoConsole.UseCase
             return todos.GetInactiveTodos();
         }
 
-        public void DoneTodoAt(int indexRemove)
+        public void DoTodo(Todo item)
         {
-            todos.DoneTodoAt(indexRemove);
+            todos.DoTodo(item);
         }
 
         public void Save()

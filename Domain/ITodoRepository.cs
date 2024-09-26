@@ -8,7 +8,7 @@ namespace LifeTodoConsole.Domain
         List<Todo> GetActiveTodos();
         List<Todo> GetInactiveTodos();
         void Initialize();
-        void DoneTodoAt(int indexRemove);
+        void DoTodo(Todo item);
         void Save();
     }
 }

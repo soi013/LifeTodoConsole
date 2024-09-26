@@ -31,10 +31,9 @@ namespace LifeTodoConsole.Infra
 
             this.todos = LoadTodos();
         }
-
-        public void DoneTodoAt(int indexRemove)
+        public void DoTodo(Todo item)
         {
-            todos[indexRemove].Status = TodoStatus.Done;
+            item.Status = TodoStatus.Done;
         }
 
         private List<Todo> LoadTodos() => serializer.LoadTodos();
