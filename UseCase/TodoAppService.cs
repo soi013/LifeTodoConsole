@@ -38,6 +38,5 @@ namespace LifeTodoConsole.UseCase
         {
             todos.Save();
         }
-
     }
 }
