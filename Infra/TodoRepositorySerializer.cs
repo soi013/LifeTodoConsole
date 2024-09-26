@@ -11,13 +11,24 @@ namespace LifeTodoConsole.Infra
         private static readonly string FILE_PATH_TODOS = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
           + $"{Path.DirectorySeparatorChar}{nameof(LifeTodoConsole)}{Path.DirectorySeparatorChar}todo.json";
 
+        private JsonSerializerOptions jsonOptions;
+
+        public TodoRepositorySerializer()
+        {
+            this.jsonOptions = new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All)       // 日本語表示
+            };
+        }
+
         internal List<Todo> LoadTodos()
         {
             List<Todo>? todos = null;
             try
             {
                 using var fs = new FileStream(FILE_PATH_TODOS, FileMode.Open);
-                todos = JsonSerializer.Deserialize<List<Todo>>(fs);
+                todos = JsonSerializer.Deserialize<List<Todo>>(fs, jsonOptions);
             }
             catch (Exception)
             {
@@ -41,7 +52,7 @@ namespace LifeTodoConsole.Infra
             }
 
             using var fs = new FileStream(FILE_PATH_TODOS, FileMode.OpenOrCreate);
-            JsonSerializer.Serialize(fs, todos);
+            JsonSerializer.Serialize(fs, todos, jsonOptions);
         }
     }
 }
