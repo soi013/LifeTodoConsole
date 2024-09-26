@@ -19,10 +19,12 @@ namespace LifeTodoConsole.Infra
             todos.Add(todoNew);
         }
 
-        public List<Todo> GetAll()
-        {
-            return todos.ToList();
-        }
+        public List<Todo> GetActiveTodos() => todos
+                .Where(x => x.Status == TodoStatus.Active)
+                .ToList();
+        public List<Todo> GetInactiveTodos() => todos
+                .Where(x => x.Status != TodoStatus.Active)
+                .ToList();
 
         public void Initialize()
         {
@@ -30,9 +32,9 @@ namespace LifeTodoConsole.Infra
             this.todos = LoadTodos();
         }
 
-        public void RemoveAt(int indexRemove)
+        public void DoneTodoAt(int indexRemove)
         {
-            todos.RemoveAt(indexRemove);
+            todos[indexRemove].Status = TodoStatus.Done;
         }
 
         private List<Todo> LoadTodos()

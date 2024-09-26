@@ -1,12 +1,11 @@
 ﻿using LifeTodoConsole.Domain;
-using System;
 using System.Collections.Generic;
 
 namespace LifeTodoConsole.UseCase
 {
     public class TodoAppService
     {
-        private ITodoRepository todos;
+        private readonly ITodoRepository todos;
 
         public TodoAppService(ITodoRepository todos)
         {
@@ -16,23 +15,29 @@ namespace LifeTodoConsole.UseCase
 
         public void AddTodo(string? todoTextNew)
         {
-            var todoNew = new Todo(todoTextNew!, DateTime.Now);
+            var todoNew = new Todo(todoTextNew!);
             todos.Add(todoNew);
         }
 
-        public List<Todo> GetTodos()
+        public List<Todo> GetActiveTodos()
         {
-            return todos.GetAll();
+            return todos.GetActiveTodos();
         }
 
-        public void RemoveTodoAt(int indexRemove)
+        public List<Todo> GetInactiveTodos()
         {
-            todos.RemoveAt(indexRemove);
+            return todos.GetInactiveTodos();
+        }
+
+        public void DoneTodoAt(int indexRemove)
+        {
+            todos.DoneTodoAt(indexRemove);
         }
 
         public void Save()
         {
             todos.Save();
         }
+
     }
 }

@@ -2,12 +2,14 @@
 
 namespace LifeTodoConsole.Domain
 {
-    public record Todo
+    public class Todo
     {
-        public string Text { get; }
-        public DateTime CreatedDate { get; }
+        public string Text { get; init; }
+        public DateTime CreatedDate { get; init; }
 
-        public Todo(string text, DateTime CreatedDate)
+        public TodoStatus Status { get; set; }
+
+        public Todo(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
@@ -15,7 +17,8 @@ namespace LifeTodoConsole.Domain
             }
 
             this.Text = text;
-            this.CreatedDate = CreatedDate;
+            this.CreatedDate = DateTime.Now;
+            this.Status = TodoStatus.Active;
         }
     }
 }

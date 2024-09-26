@@ -5,9 +5,10 @@ namespace LifeTodoConsole.Domain
     public interface ITodoRepository
     {
         void Add(Todo todoNew);
-        List<Todo> GetAll();
+        List<Todo> GetActiveTodos();
+        List<Todo> GetInactiveTodos();
         void Initialize();
-        void RemoveAt(int indexRemove);
+        void DoneTodoAt(int indexRemove);
         void Save();
     }
 }

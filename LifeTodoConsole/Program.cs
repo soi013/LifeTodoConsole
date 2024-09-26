@@ -14,10 +14,10 @@ namespace LifeTodoConsole
 
             var appService = serviceProvider.GetService<TodoAppService>()!;
 
-            Console.WriteLine("新しいTODOを入力すると追加されます。消すときは数字を入力してください。何も入力せず、Enterを押すと終了します。");
+            Console.WriteLine("新しいTODOを入力すると追加されます。完了したら数字を入力してください。何も入力せず、Enterを押すと終了します。");
             Console.WriteLine();
 
-            ShowTodos(appService.GetTodos());
+            ShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
 
             while (true)
             {
@@ -25,7 +25,7 @@ namespace LifeTodoConsole
 
                 if (int.TryParse(todoTextNew, out int indexRemove))
                 {
-                    appService.RemoveTodoAt(indexRemove);
+                    appService.DoneTodoAt(indexRemove);
                 }
                 else
                 {
@@ -39,13 +39,13 @@ namespace LifeTodoConsole
                     }
                 }
 
-                ShowTodos(appService.GetTodos());
+                ShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
 
                 Console.WriteLine();
             }
 
             Console.WriteLine("End App");
-            ShowTodos(appService.GetTodos());
+            ShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
             appService.Save();
             Console.ReadLine();
         }
@@ -58,10 +58,16 @@ namespace LifeTodoConsole
             return todoTextNew;
         }
 
-        static void ShowTodos(List<Todo> todos)
+        static void ShowTodos(IEnumerable<Todo> activeTodos, IEnumerable<Todo> inactiveTodo)
         {
             Console.WriteLine($"Current TODOs");
-            foreach (var (todo, index) in todos.Select((t, i) => (t, i)))
+            foreach (var (todo, index) in activeTodos.Select((t, i) => (t, i)))
+            {
+                Console.WriteLine($" {index}:\t{todo.Text}");
+            }
+
+            Console.WriteLine($"---INACTIVE---");
+            foreach (var (todo, index) in inactiveTodo.Select((t, i) => (t, i)))
             {
                 Console.WriteLine($" {index}:\t{todo.Text}");
             }

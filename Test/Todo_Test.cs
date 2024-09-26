@@ -8,7 +8,7 @@ namespace Test
         [Fact]
         public void Todo_CreateTodo_Success()
         {
-            var todo = new Todo("hoge", new DateTime(2020, 12, 3));
+            var todo = new Todo("hoge") { CreatedDate = new DateTime(2020, 12, 3) };
             todo.Should().NotBeNull();
             todo.Text.Should().Be("hoge");
             todo.CreatedDate.Year.Should().Be(2020);
@@ -23,7 +23,7 @@ namespace Test
         public void Todo_CreateInvalidTextTodo_Fail(string textTodo)
         {
 
-            var funcTodo = () => new Todo(textTodo, new DateTime(2020, 12, 3));
+            var funcTodo = () => new Todo(textTodo) { CreatedDate = new DateTime(2020, 12, 3) };
             funcTodo.Should().Throw<ArgumentException>();
         }
     }
