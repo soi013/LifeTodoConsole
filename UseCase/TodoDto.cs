@@ -1,6 +1,6 @@
-﻿using LifeTodoConsole.Domain;
+﻿using LifeTodo.Domain;
 
-namespace LifeTodoConsole.UseCase
+namespace LifeTodo.UseCase
 {
     public record TodoDto
     {

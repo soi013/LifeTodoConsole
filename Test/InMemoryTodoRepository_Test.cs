@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
-using LifeTodoConsole.Domain;
-using LifeTodoConsole.Infra;
+using LifeTodo.Domain;
+using LifeTodo.Infra;
 
 namespace Test
 {

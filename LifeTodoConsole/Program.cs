@@ -1,4 +1,4 @@
-﻿using LifeTodoConsole.UseCase;
+﻿using LifeTodo.UseCase;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LifeTodoConsole

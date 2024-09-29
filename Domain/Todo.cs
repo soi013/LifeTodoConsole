@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LifeTodoConsole.Domain
+namespace LifeTodo.Domain
 {
     public class Todo
     {

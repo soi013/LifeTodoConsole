@@ -1,5 +1,5 @@
 using FluentAssertions;
-using LifeTodoConsole.Domain;
+using LifeTodo.Domain;
 
 namespace Test
 {

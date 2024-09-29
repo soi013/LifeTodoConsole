@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LifeTodoConsole.Domain
+namespace LifeTodo.Domain
 {
     public interface ITodoRepository
     {

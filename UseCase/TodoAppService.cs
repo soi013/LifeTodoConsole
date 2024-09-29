@@ -1,8 +1,8 @@
-﻿using LifeTodoConsole.Domain;
+﻿using LifeTodo.Domain;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LifeTodoConsole.UseCase
+namespace LifeTodo.UseCase
 {
     public class TodoAppService
     {

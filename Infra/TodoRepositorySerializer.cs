@@ -1,15 +1,15 @@
-﻿using LifeTodoConsole.Domain;
+﻿using LifeTodo.Domain;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace LifeTodoConsole.Infra
+namespace LifeTodo.Infra
 {
     internal class TodoRepositorySerializer
     {
         private static readonly string FILE_PATH_TODOS = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-          + $"{Path.DirectorySeparatorChar}{nameof(LifeTodoConsole)}{Path.DirectorySeparatorChar}todo.json";
+          + $"{Path.DirectorySeparatorChar}{nameof(LifeTodo)}{Path.DirectorySeparatorChar}todo.json";
 
         private readonly JsonSerializerOptions jsonOptions;
 

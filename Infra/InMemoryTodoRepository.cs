@@ -1,8 +1,8 @@
-﻿using LifeTodoConsole.Domain;
+﻿using LifeTodo.Domain;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LifeTodoConsole.Infra
+namespace LifeTodo.Infra
 {
     public class InMemoryTodoRepository : ITodoRepository
     {

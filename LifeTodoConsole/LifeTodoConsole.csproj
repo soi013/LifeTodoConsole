@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Infra\Infra.csproj" />
-    <ProjectReference Include="..\UseCase\UseCase.csproj" />
+    <ProjectReference Include="..\Domain\LifeTodo.Domain.csproj" />
+    <ProjectReference Include="..\Infra\LifeTodo.Infra.csproj" />
+    <ProjectReference Include="..\UseCase\LifeTodo.UseCase.csproj" />
   </ItemGroup>
 
 </Project>

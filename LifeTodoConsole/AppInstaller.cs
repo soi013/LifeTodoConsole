@@ -1,7 +1,7 @@
 ﻿
-using LifeTodoConsole.Domain;
-using LifeTodoConsole.Infra;
-using LifeTodoConsole.UseCase;
+using LifeTodo.Domain;
+using LifeTodo.Infra;
+using LifeTodo.UseCase;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LifeTodoConsole
