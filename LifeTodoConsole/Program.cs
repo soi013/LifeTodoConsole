@@ -1,13 +1,12 @@
-﻿using LifeTodoConsole.Domain;
-using LifeTodoConsole.UseCase;
+﻿using LifeTodoConsole.UseCase;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LifeTodoConsole
 {
     class Program
     {
-        private static IReadOnlyList<Todo> currentActiveTodos = [];
-        private static IReadOnlyList<Todo> currentInactiveTodos = [];
+        private static IReadOnlyList<TodoDto> currentActiveTodos = [];
+        private static IReadOnlyList<TodoDto> currentInactiveTodos = [];
 
         static void Main()
         {
@@ -43,7 +42,7 @@ namespace LifeTodoConsole
 
             if (int.TryParse(todoTextNew, out int indexDone))
             {
-                Todo itemDone = currentActiveTodos.ElementAt(indexDone);
+                TodoDto itemDone = currentActiveTodos.ElementAt(indexDone);
 
                 appService.DoTodo(itemDone);
             }
@@ -73,7 +72,7 @@ namespace LifeTodoConsole
             return todoTextNew;
         }
 
-        static void UpdateAndShowTodos(IEnumerable<Todo> activeTodos, IEnumerable<Todo> inactiveTodo)
+        static void UpdateAndShowTodos(IEnumerable<TodoDto> activeTodos, IEnumerable<TodoDto> inactiveTodo)
         {
             currentActiveTodos = activeTodos.ToList();
             currentInactiveTodos = inactiveTodo.ToList();

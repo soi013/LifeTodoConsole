@@ -28,11 +28,12 @@ namespace LifeTodoConsole.Infra
 
         public void Initialize()
         {
-
             this.todos = LoadTodos();
         }
-        public void DoTodo(Todo item)
+
+        public void DoTodo(TodoId targetId)
         {
+            var item = todos.Find(x => x.Id == targetId);
             item.Status = TodoStatus.Done;
         }
 

@@ -1,5 +1,6 @@
 ﻿using LifeTodoConsole.Domain;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LifeTodoConsole.UseCase
 {
@@ -19,19 +20,20 @@ namespace LifeTodoConsole.UseCase
             todos.Add(todoNew);
         }
 
-        public List<Todo> GetActiveTodos()
+        public List<TodoDto> GetActiveTodos()
         {
-            return todos.GetActiveTodos();
+            return todos.GetActiveTodos().Select(t => new TodoDto(t)).ToList();
         }
 
-        public List<Todo> GetInactiveTodos()
+        public List<TodoDto> GetInactiveTodos()
         {
-            return todos.GetInactiveTodos();
+            return todos.GetInactiveTodos().Select(t => new TodoDto(t)).ToList();
+
         }
 
-        public void DoTodo(Todo item)
+        public void DoTodo(TodoDto item)
         {
-            todos.DoTodo(item);
+            todos.DoTodo(item.Id);
         }
 
         public void Save()

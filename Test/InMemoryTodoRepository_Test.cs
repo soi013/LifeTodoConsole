@@ -30,14 +30,14 @@ namespace Test
             rep.Add(new Todo("test2"));
 
             var todoDone = rep.GetActiveTodos()[0];
-            rep.DoTodo(todoDone);
+            rep.DoTodo(todoDone.Id);
 
             rep.GetActiveTodos().Should().HaveCount(1);
             rep.GetInactiveTodos().Should().HaveCount(1);
             rep.GetActiveTodos().Select(x => x.Text).Should().BeEquivalentTo("test2");
 
             todoDone = rep.GetActiveTodos()[0];
-            rep.DoTodo(todoDone);
+            rep.DoTodo(todoDone.Id);
 
             rep.GetActiveTodos().Should().BeEmpty();
             rep.GetInactiveTodos().Should().HaveCount(2);
