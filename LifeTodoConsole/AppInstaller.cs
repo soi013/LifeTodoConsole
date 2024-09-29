@@ -4,7 +4,7 @@ using LifeTodo.Infra;
 using LifeTodo.UseCase;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LifeTodoConsole
+namespace LifeTodo.ConsoleApp
 {
     internal class AppInstaller
     {

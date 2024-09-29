@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\LifeTodo.Domain.csproj" />
     <ProjectReference Include="..\Infra\LifeTodo.Infra.csproj" />
-    <ProjectReference Include="..\LifeTodoConsole\LifeTodoConsole.csproj" />
+    <ProjectReference Include="..\LifeTodoConsole\LifeTodo.ConsoleApp.csproj" />
     <ProjectReference Include="..\UseCase\LifeTodo.UseCase.csproj" />
   </ItemGroup>
 

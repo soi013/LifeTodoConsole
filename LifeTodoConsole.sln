@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LifeTodoConsole", "LifeTodoConsole\LifeTodoConsole.csproj", "{E5CB9E8D-685D-4C14-AF2B-032236D85041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LifeTodo.ConsoleApp", "LifeTodoConsole\LifeTodo.ConsoleApp.csproj", "{E5CB9E8D-685D-4C14-AF2B-032236D85041}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3AB063CA-4D2B-4F6A-9B6A-5CE3381DF7D4} = {3AB063CA-4D2B-4F6A-9B6A-5CE3381DF7D4}
 	EndProjectSection

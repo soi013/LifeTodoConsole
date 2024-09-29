@@ -1,7 +1,7 @@
 ﻿using LifeTodo.UseCase;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LifeTodoConsole
+namespace LifeTodo.ConsoleApp
 {
     class Program
     {
