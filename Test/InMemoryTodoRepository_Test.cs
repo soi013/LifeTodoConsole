@@ -1,15 +1,32 @@
 ﻿using FluentAssertions;
 using LifeTodo.Domain;
 using LifeTodo.Infra;
+using Test.TestSource;
 
 namespace Test
 {
     public class InMemoryTodoRepository_Test
     {
+        public InMemoryTodoRepository_Test()
+        {
+            CleanTestDirectory();
+        }
+
+        private static void CleanTestDirectory()
+        {
+            var path = new PathTemporary();
+            if (Directory.Exists(path.FilePathSerialize))
+            {
+                Directory.Delete(path.FilePathSerialize, true);
+            }
+        }
+
         [Fact]
         public void InMemoryTodoRepository_AddTodo_HaveTodo()
         {
-            var rep = new InMemoryTodoRepository();
+            var path = new PathTemporary();
+            var serializer = new TodoRepositorySerializer(path);
+            var rep = new InMemoryTodoRepository(serializer);
 
             //rep.Initialize(); 
             rep.Add(new Todo("test1"));
@@ -23,7 +40,9 @@ namespace Test
         [Fact]
         public void InMemoryTodoRepository_DoTodo_HaveInactiveTodo()
         {
-            var rep = new InMemoryTodoRepository();
+            IPathSerializeTarget path = new PathTemporary();
+            var serializer = new TodoRepositorySerializer(path);
+            var rep = new InMemoryTodoRepository(serializer);
 
             //rep.Initialize(); 
             rep.Add(new Todo("test1"));
@@ -41,6 +60,44 @@ namespace Test
 
             rep.GetActiveTodos().Should().BeEmpty();
             rep.GetInactiveTodos().Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void InMemoryTodoRepository_Load_HaveTodo()
+        {
+            IPathSerializeTarget path = new PathTemporary();
+            var serializer = new TodoRepositorySerializer(path);
+            var rep = new InMemoryTodoRepository(serializer);
+
+            var pathSource = Path.GetFullPath("../../../TestSource/SampleTodo.json");
+            Directory.CreateDirectory(Path.GetDirectoryName(path.FilePathSerialize)!);
+            File.Copy(pathSource, path.FilePathSerialize, true);
+
+            rep.Initialize();
+
+            rep.GetActiveTodos().Should().HaveCount(2);
+            rep.GetInactiveTodos().Should().HaveCount(1);
+            rep.GetActiveTodos().Select(x => x.Text).Should().BeEquivalentTo("AAA", "CCC");
+            rep.GetInactiveTodos().Select(x => x.Text).Should().BeEquivalentTo("BBB");
+        }
+
+        [Fact]
+        public void InMemoryTodoRepository_Save_HaveTodo()
+        {
+            var path = new PathTemporary();
+            var serializer = new TodoRepositorySerializer(path);
+            var rep = new InMemoryTodoRepository(serializer);
+
+            Directory.CreateDirectory(Path.GetDirectoryName(path.FilePathSerialize)!);
+
+            rep.Add(new Todo("test1"));
+            rep.Add(new Todo("test2"));
+
+            rep.Save();
+
+            var textSerializedTodo = File.ReadAllText(path.FilePathSerialize);
+            textSerializedTodo.Should().Contain("test1");
+            textSerializedTodo.Should().Contain("test2");
         }
     }
 }
