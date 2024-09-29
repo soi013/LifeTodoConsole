@@ -29,7 +29,6 @@ namespace Test
             rep.Add(new Todo("test1"));
             rep.Add(new Todo("test2"));
 
-
             var todoDone = rep.GetActiveTodos()[0];
             rep.DoTodo(todoDone);
 

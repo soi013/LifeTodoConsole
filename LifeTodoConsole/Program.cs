@@ -6,8 +6,8 @@ namespace LifeTodoConsole
 {
     class Program
     {
-        private static List<Todo> currentActiveTodos = [];
-        private static List<Todo> currentInactiveTodos = [];
+        private static IReadOnlyList<Todo> currentActiveTodos = [];
+        private static IReadOnlyList<Todo> currentInactiveTodos = [];
 
         static void Main()
         {
@@ -24,35 +24,45 @@ namespace LifeTodoConsole
 
             while (true)
             {
-                string? todoTextNew = RecieveText();
-
-                if (int.TryParse(todoTextNew, out int indexDone))
+                bool isFinished = Update(appService);
+                if (isFinished)
                 {
-                    Todo itemDone = currentActiveTodos.ElementAt(indexDone);
-
-                    appService.DoTodo(itemDone);
+                    break;
                 }
-                else
-                {
-                    try
-                    {
-                        appService.AddTodo(todoTextNew);
-                    }
-                    catch (ArgumentException)
-                    {
-                        break;
-                    }
-                }
-
-                UpdateAndShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
-
-                Console.WriteLine();
             }
 
             Console.WriteLine("End App");
             UpdateAndShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
             appService.Save();
             Console.ReadLine();
+        }
+
+        private static bool Update(TodoAppService appService)
+        {
+            string? todoTextNew = RecieveText();
+
+            if (int.TryParse(todoTextNew, out int indexDone))
+            {
+                Todo itemDone = currentActiveTodos.ElementAt(indexDone);
+
+                appService.DoTodo(itemDone);
+            }
+            else
+            {
+                try
+                {
+                    appService.AddTodo(todoTextNew);
+                }
+                catch (ArgumentException)
+                {
+                    return true;
+                }
+            }
+
+            UpdateAndShowTodos(appService.GetActiveTodos(), appService.GetInactiveTodos());
+
+            Console.WriteLine();
+            return false;
         }
 
         private static string? RecieveText()
