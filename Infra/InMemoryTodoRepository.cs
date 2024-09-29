@@ -7,11 +7,11 @@ namespace LifeTodo.Infra
     public class InMemoryTodoRepository : ITodoRepository
     {
         private List<Todo> todos = new();
-        private TodoRepositorySerializer serializer;
+        private readonly TodoRepositorySerializer serializer;
 
-        public InMemoryTodoRepository()
+        public InMemoryTodoRepository(TodoRepositorySerializer serializer)
         {
-            this.serializer = new TodoRepositorySerializer();
+            this.serializer = serializer;
         }
 
         public void Add(Todo todoNew)

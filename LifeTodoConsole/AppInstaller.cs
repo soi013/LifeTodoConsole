@@ -13,6 +13,8 @@ namespace LifeTodo.ConsoleApp
         public AppInstaller()
         {
             var appCollection = new ServiceCollection();
+            appCollection.AddTransient<IPathSerializeTarget, PathApplicationDataJson>();
+            appCollection.AddTransient<TodoRepositorySerializer>();
             appCollection.AddSingleton<ITodoRepository, InMemoryTodoRepository>();
             appCollection.AddSingleton<TodoAppService>();
 

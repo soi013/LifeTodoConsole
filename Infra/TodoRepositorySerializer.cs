@@ -6,15 +6,14 @@ using System.Text.Json;
 
 namespace LifeTodo.Infra
 {
-    internal class TodoRepositorySerializer
+    public class TodoRepositorySerializer
     {
-        private static readonly string FILE_PATH_TODOS = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-          + $"{Path.DirectorySeparatorChar}{nameof(LifeTodo)}{Path.DirectorySeparatorChar}todo.json";
-
+        private readonly IPathSerializeTarget pathTarget;
         private readonly JsonSerializerOptions jsonOptions;
 
-        public TodoRepositorySerializer()
+        public TodoRepositorySerializer(IPathSerializeTarget pathTarget)
         {
+            this.pathTarget = pathTarget;
             this.jsonOptions = new JsonSerializerOptions()
             {
                 WriteIndented = true,
@@ -27,7 +26,7 @@ namespace LifeTodo.Infra
             List<Todo>? todos = null;
             try
             {
-                using var fs = new FileStream(FILE_PATH_TODOS, FileMode.Open);
+                using var fs = new FileStream(pathTarget.FilePathSerialize, FileMode.Open);
                 todos = JsonSerializer.Deserialize<List<Todo>>(fs, jsonOptions);
             }
             catch (Exception)
@@ -39,7 +38,7 @@ namespace LifeTodo.Infra
 
         internal void Save(List<Todo> todos)
         {
-            var path = Path.GetDirectoryName(FILE_PATH_TODOS);
+            var path = Path.GetDirectoryName(pathTarget.FilePathSerialize);
             if (path == null)
             {
                 Console.WriteLine("FAILED SAVE TODOs");
@@ -51,7 +50,7 @@ namespace LifeTodo.Infra
                 Directory.CreateDirectory(path);
             }
 
-            using var fs = new FileStream(FILE_PATH_TODOS, FileMode.OpenOrCreate);
+            using var fs = new FileStream(pathTarget.FilePathSerialize, FileMode.OpenOrCreate);
             JsonSerializer.Serialize(fs, todos, jsonOptions);
         }
     }
