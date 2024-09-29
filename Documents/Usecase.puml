@@ -1,0 +1,29 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+actor "User" as u
+actor "System" as s
+package TODO {
+    usecase "TODO追加" as add
+    usecase "TODOを見る" as view
+    usecase "TODO完了" as done
+    usecase "TODO内容を見る" as viewText
+    usecase "TODOステータスを見る" as viewStatus
+    usecase "TODO期限までの時間が見える" as viewDate
+
+    usecase "一定時間で期限切れにする" as expire
+    usecase "有効なTODOは一定個数に制限する" as limit
+}
+
+u --> add
+u --> view
+view ..> viewText : <<include>>
+view ..> viewStatus : <<include>>
+view ..> viewDate : <<include>>
+u --> done
+
+add ..> expire : <<extend>>
+add ..> limit : <<extend>>
+s --> expire
+s --> limit
+@enduml
