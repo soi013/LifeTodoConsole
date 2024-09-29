@@ -26,7 +26,7 @@ namespace Test
         {
             var path = new PathTemporary();
             var serializer = new TodoRepositorySerializer(path);
-            var rep = new InMemoryTodoRepository(serializer);
+            var rep = new InMemoryTodoRepository(serializer, new());
 
             //rep.Initialize(); 
             rep.Add(new Todo("test1"));
@@ -42,7 +42,7 @@ namespace Test
         {
             IPathSerializeTarget path = new PathTemporary();
             var serializer = new TodoRepositorySerializer(path);
-            var rep = new InMemoryTodoRepository(serializer);
+            var rep = new InMemoryTodoRepository(serializer, new());
 
             //rep.Initialize(); 
             rep.Add(new Todo("test1"));
@@ -67,7 +67,7 @@ namespace Test
         {
             IPathSerializeTarget path = new PathTemporary();
             var serializer = new TodoRepositorySerializer(path);
-            var rep = new InMemoryTodoRepository(serializer);
+            var rep = new InMemoryTodoRepository(serializer, new());
 
             var pathSource = Path.GetFullPath("../../../TestSource/SampleTodo.json");
             Directory.CreateDirectory(Path.GetDirectoryName(path.FilePathSerialize)!);
@@ -75,10 +75,11 @@ namespace Test
 
             rep.Initialize();
 
-            rep.GetActiveTodos().Should().HaveCount(2);
-            rep.GetInactiveTodos().Should().HaveCount(1);
-            rep.GetActiveTodos().Select(x => x.Text).Should().BeEquivalentTo("AAA", "CCC");
-            rep.GetInactiveTodos().Select(x => x.Text).Should().BeEquivalentTo("BBB");
+            rep.GetActiveTodos().Should().HaveCount(1);
+            rep.GetInactiveTodos().Should().HaveCount(2);
+            rep.GetActiveTodos().Select(x => x.Text).Should().BeEquivalentTo("AAA");
+            rep.GetInactiveTodos().Select(x => x.Text).Should().BeEquivalentTo("BBB", "CCC");
+            rep.GetInactiveTodos().Select(x => x.Status).Should().BeEquivalentTo([TodoStatus.Done, TodoStatus.Expired]);
         }
 
         [Fact]
@@ -86,7 +87,7 @@ namespace Test
         {
             var path = new PathTemporary();
             var serializer = new TodoRepositorySerializer(path);
-            var rep = new InMemoryTodoRepository(serializer);
+            var rep = new InMemoryTodoRepository(serializer, new());
 
             Directory.CreateDirectory(Path.GetDirectoryName(path.FilePathSerialize)!);
 

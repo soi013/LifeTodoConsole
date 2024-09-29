@@ -8,9 +8,9 @@ namespace LifeTodo.Domain
         public string Text { get; init; }
         public DateTime CreatedDate { get; init; }
 
-        public TodoStatus Status { get; set; }
+        public TodoStatus Status { get; private set; }
 
-        public Todo(string text)
+        public Todo(string text, TodoStatus status = TodoStatus.Active)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
@@ -20,7 +20,25 @@ namespace LifeTodo.Domain
             this.Id = new(Guid.NewGuid().ToString());
             this.Text = text;
             this.CreatedDate = DateTime.Now;
-            this.Status = TodoStatus.Active;
+            this.Status = status;
         }
+
+        public void Do()
+        {
+            if (Status == TodoStatus.Active)
+            {
+                Status = TodoStatus.Done;
+            }
+        }
+
+        public void Expire()
+        {
+            if (Status == TodoStatus.Active)
+            {
+                Status = TodoStatus.Expired;
+            }
+        }
+
+        public override string ToString() => $"{Text} {Status} {CreatedDate}";
     }
 }

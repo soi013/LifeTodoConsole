@@ -8,10 +8,12 @@ namespace LifeTodo.Infra
     {
         private List<Todo> todos = new();
         private readonly TodoRepositorySerializer serializer;
+        private readonly TodoExpireDomainService todoExpire;
 
-        public InMemoryTodoRepository(TodoRepositorySerializer serializer)
+        public InMemoryTodoRepository(TodoRepositorySerializer serializer, TodoExpireDomainService todoExpire)
         {
             this.serializer = serializer;
+            this.todoExpire = todoExpire;
         }
 
         public void Add(Todo todoNew)
@@ -19,22 +21,42 @@ namespace LifeTodo.Infra
             todos.Add(todoNew);
         }
 
-        public List<Todo> GetActiveTodos() => todos
+        public List<Todo> GetActiveTodos()
+        {
+            UpdateTodoExpired();
+            return todos
                 .Where(x => x.Status == TodoStatus.Active)
                 .ToList();
-        public List<Todo> GetInactiveTodos() => todos
+        }
+
+        public List<Todo> GetInactiveTodos()
+        {
+            UpdateTodoExpired();
+            return todos
                 .Where(x => x.Status != TodoStatus.Active)
                 .ToList();
+        }
+
+        public void UpdateTodoExpired()
+        {
+            foreach (var todo in todos.Where(x => x.Status == TodoStatus.Active))
+            {
+                todoExpire.ExpireTodoIfNeed(todo);
+            }
+        }
 
         public void Initialize()
         {
             this.todos = LoadTodos();
+            UpdateTodoExpired();
         }
 
         public void DoTodo(TodoId targetId)
         {
+            UpdateTodoExpired();
+
             var item = todos.Find(x => x.Id == targetId);
-            item.Status = TodoStatus.Done;
+            item.Do();
         }
 
         private List<Todo> LoadTodos() => serializer.LoadTodos();

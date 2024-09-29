@@ -9,6 +9,7 @@ namespace LifeTodo.Domain
         List<Todo> GetInactiveTodos();
         void Initialize();
         void DoTodo(TodoId id);
+        void UpdateTodoExpired();
         void Save();
     }
 }

@@ -16,6 +16,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LifeTodo.UseCase", "UseCase
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{2A3F1DE9-6612-4CCD-AA3D-265C9EE11A62}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{9C4476E0-C112-4F81-BC5E-70700D89DB6C}"
+	ProjectSection(SolutionItems) = preProject
+		Documents\Usecase.puml = Documents\Usecase.puml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

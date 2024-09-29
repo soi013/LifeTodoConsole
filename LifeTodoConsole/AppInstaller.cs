@@ -15,6 +15,7 @@ namespace LifeTodo.ConsoleApp
             var appCollection = new ServiceCollection();
             appCollection.AddTransient<IPathSerializeTarget, PathApplicationDataJson>();
             appCollection.AddTransient<TodoRepositorySerializer>();
+            appCollection.AddTransient<TodoExpireDomainService>();
             appCollection.AddSingleton<ITodoRepository, InMemoryTodoRepository>();
             appCollection.AddSingleton<TodoAppService>();
 

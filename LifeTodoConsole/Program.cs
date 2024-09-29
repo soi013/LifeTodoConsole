@@ -80,13 +80,13 @@ namespace LifeTodo.ConsoleApp
             Console.WriteLine($"Current TODOs");
             foreach (var (todo, index) in currentActiveTodos.Select((t, i) => (t, i)))
             {
-                Console.WriteLine($" {index}:\t{todo.Text}");
+                Console.WriteLine($" {index}:\t{todo.Text}\t{todo.Status}");
             }
 
             Console.WriteLine($"---INACTIVE---");
             foreach (var (todo, index) in currentInactiveTodos.Select((t, i) => (t, i)))
             {
-                Console.WriteLine($" {index}:\t{todo.Text}");
+                Console.WriteLine($" {index}:\t{todo.Text}\t{todo.Status}");
             }
         }
     }
