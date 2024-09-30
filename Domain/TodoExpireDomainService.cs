@@ -22,9 +22,7 @@ namespace LifeTodo.Domain
                 return false;
             }
 
-            currentTime ??= DateTime.Now;
-
-            if (todo.CreatedDate.Add(timeExpired) >= currentTime)
+            if (CalcRemainTime(todo.CreatedDate, currentTime) > TimeSpan.Zero)
             {
                 return false;
             }
@@ -32,5 +30,8 @@ namespace LifeTodo.Domain
             todo.Expire();
             return true;
         }
+
+        public TimeSpan CalcRemainTime(DateTime createdDate, DateTime? currentTime = null) =>
+            createdDate.Add(timeExpired) - (currentTime ?? DateTime.Now);
     }
 }
