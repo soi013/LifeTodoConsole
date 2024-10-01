@@ -8,9 +8,9 @@ namespace LifeTodo.ConsoleApp
     {
         private static IReadOnlyList<TodoDto> currentActiveTodos = [];
         private static IReadOnlyList<TodoDto> currentInactiveTodos = [];
-        private static ServiceProvider serviceProvider = new AppInstaller().AppProvider;
-        private static TodoAppService appService = serviceProvider.GetService<TodoAppService>()!;
-        private static TodoExpireDomainService expireService = serviceProvider.GetService<TodoExpireDomainService>()!;
+        private static readonly ServiceProvider serviceProvider = new AppInstaller().AppProvider;
+        private static readonly TodoAppService appService = serviceProvider.GetService<TodoAppService>()!;
+        private static readonly TodoExpireDomainService expireService = serviceProvider.GetService<TodoExpireDomainService>()!;
 
         static void Main()
         {
@@ -51,6 +51,10 @@ namespace LifeTodo.ConsoleApp
                 try
                 {
                     appService.AddTodo(todoTextNew);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.WriteLine("有効なTODOは5個までです。先にTODOを完了しくてください");
                 }
                 catch (ArgumentException)
                 {

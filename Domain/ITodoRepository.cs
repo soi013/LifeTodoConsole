@@ -4,6 +4,10 @@ namespace LifeTodo.Domain
 {
     public interface ITodoRepository
     {
+        public const int MAX_TODO_COUNT = 5;
+
+        bool IsMaxTodoCount { get; }
+
         void Add(Todo todoNew);
         List<Todo> GetActiveTodos();
         List<Todo> GetInactiveTodos();

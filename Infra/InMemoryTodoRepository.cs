@@ -1,4 +1,5 @@
 ﻿using LifeTodo.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,6 +11,8 @@ namespace LifeTodo.Infra
         private readonly TodoRepositorySerializer serializer;
         private readonly TodoExpireDomainService todoExpire;
 
+        public bool IsMaxTodoCount => GetActiveTodos().Count >= ITodoRepository.MAX_TODO_COUNT;
+
         public InMemoryTodoRepository(TodoRepositorySerializer serializer, TodoExpireDomainService todoExpire)
         {
             this.serializer = serializer;
@@ -18,6 +21,11 @@ namespace LifeTodo.Infra
 
         public void Add(Todo todoNew)
         {
+            if (IsMaxTodoCount)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             todos.Add(todoNew);
         }
 

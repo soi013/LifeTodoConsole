@@ -63,6 +63,32 @@ namespace Test
         }
 
         [Fact]
+        public void InMemoryTodoRepository_TooManyAddTodo_TodoAddFailed()
+        {
+            var path = new PathTemporary();
+            var serializer = new TodoRepositorySerializer(path);
+            ITodoRepository rep = new InMemoryTodoRepository(serializer, new());
+
+            //rep.Initialize();
+
+            rep.IsMaxTodoCount.Should().BeFalse();
+            const int TodoCountMax = 5;
+            for (int i = 0; i < TodoCountMax; i++)
+            {
+                rep.Add(new Todo($"test{i}"));
+            }
+
+            rep.GetActiveTodos().Should().HaveCount(TodoCountMax);
+            rep.IsMaxTodoCount.Should().BeTrue();
+
+
+            var failAddTodo = () => rep.Add(new Todo("test_fail"));
+            failAddTodo.Should().Throw<ArgumentOutOfRangeException>();
+
+            rep.GetActiveTodos().Should().HaveCount(TodoCountMax);
+        }
+
+        [Fact]
         public void InMemoryTodoRepository_Load_HaveTodo()
         {
             IPathSerializeTarget path = new PathTemporary();
