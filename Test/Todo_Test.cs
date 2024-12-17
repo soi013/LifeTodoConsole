@@ -22,7 +22,6 @@ namespace Test
         [InlineData("  ")]
         public void Todo_CreateInvalidTextTodo_Fail(string textTodo)
         {
-
             var funcTodo = () => new Todo(textTodo) { CreatedDate = new DateTime(2020, 12, 3) };
             funcTodo.Should().Throw<ArgumentException>();
         }

@@ -76,7 +76,6 @@ namespace Test
             rep.GetActiveTodos().Should().HaveCount(1);
             rep.GetInactiveTodos().Should().HaveCount(1);
 
-
             var todoExpired = rep.GetInactiveTodos()[0];
             rep.DoTodo(todoExpired.Id);
 
@@ -90,7 +89,6 @@ namespace Test
             rep.GetInactiveTodos().Should().HaveCount(2);
 
             rep.DoTodo(todoActive.Id);
-
 
             rep.GetActiveTodos().Should().HaveCount(0);
             rep.GetInactiveTodos().Should().HaveCount(2);
