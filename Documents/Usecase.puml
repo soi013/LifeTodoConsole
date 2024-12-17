@@ -1,4 +1,3 @@
-@startuml
 skinparam actorStyle awesome
 left to right direction
 actor "User" as u
@@ -12,7 +11,8 @@ package TODO {
     usecase "TODO期限までの時間が見える" as viewDate
 
     usecase "一定時間で期限切れにする" as expire
-    usecase "有効なTODOは一定個数に制限する" as limit
+    usecase "有効なTODOは一定個数に制限する" as limit    
+    usecase "一度期限切れになったTODOは変更できない" as cannotDone
 }
 
 u --> add
@@ -24,6 +24,7 @@ u --> done
 
 add ..> expire : <<extend>>
 add ..> limit : <<extend>>
+expire ..> cannotDone : <<extend>>
 s --> expire
 s --> limit
-@enduml
+s --> cannotDone
